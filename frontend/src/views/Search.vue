@@ -7,10 +7,7 @@
                 <h2 class="is-size-5 has-text-grey">Search term: "{{ query }}"</h2>
             </div>
 
-            <ProductBox 
-                v-for="product in products"
-                v-bind:key="product.id"
-                v-bind:product="product" />
+            <ProductBox v-for="product in products" v-bind:key="product.id" v-bind:product="product" />
         </div>
     </div>
 </template>
@@ -48,7 +45,7 @@ export default {
             this.$store.commit('setIsLoading', true)
 
             await axios
-                .post('api/v1/products/search/', {query: this.query})
+                .post('api/v1/products/search/', { query: this.query })
                 .then(response => {
                     this.products = response.data
                 })
