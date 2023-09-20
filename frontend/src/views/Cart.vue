@@ -59,7 +59,14 @@ export default {
         }
     },
     mounted() {
+        document.title = 'Cart | Djackets'
+
         this.cart = this.$store.state.cart
+    },
+    methods: {
+        removeFromCart(item) {
+            this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
+        }
     },
     computed: {
         cartTotalLength() {
@@ -71,7 +78,7 @@ export default {
             return this.cart.items.reduce((acc, curVal) => {
                 return acc +=curVal.product.price * curVal.quantity
             }, 0)
-        }
+        },
     }
 }
 </script>
