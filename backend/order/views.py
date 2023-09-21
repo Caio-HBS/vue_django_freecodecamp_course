@@ -15,7 +15,7 @@ from rest_framework.decorators import (
 )
 
 from order.models import Order, OrderItem
-# from order.serializers import OrderSerializer, MyOrderSerializer
+from order.serializers import OrderSerializer
 
 
 @api_view(["POST"])
