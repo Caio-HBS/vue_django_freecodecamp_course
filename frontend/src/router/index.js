@@ -11,6 +11,7 @@ import Cart from '../views/Cart.vue'
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
+import Checkout from '../views/Checkout.vue'
 
 const routes = [
   {
@@ -55,6 +56,14 @@ const routes = [
     component: Cart
   },
   {
+    path: '/cart/checkout',
+    name: 'Checkout',
+    component: Checkout,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
     path: '/:category_slug/:product_slug',
     name: 'Product',
     component: Product
@@ -75,7 +84,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
     next({
       name: 'Login',
-      query: {to: to.path}
+      query: { to: to.path }
     });
   } else {
     next()
