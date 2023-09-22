@@ -15,7 +15,7 @@ from rest_framework.decorators import (
 )
 
 from order.models import Order, OrderItem
-from order.serializers import OrderSerializer
+from order.serializers import OrderSerializer, MyOrderSerializer
 
 
 @api_view(["POST"])
@@ -45,3 +45,14 @@ def checkout(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderListAPIView(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        orders = Order.objects.filter(user=request.user)
+        serializer = MyOrderSerializer(orders, many=True)
+
+        return Response(serializer.data)
